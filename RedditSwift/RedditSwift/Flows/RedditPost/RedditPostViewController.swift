@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RedditPostViewController.swift
 //  RedditSwift
 //
 //  Created by Xujie Zheng on 2020-09-05.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class RedditPostViewController: UIViewController {
 
     let fetchDataRepository: RedditAPIRepository = RedditAPIURLSessionRepository()
 
