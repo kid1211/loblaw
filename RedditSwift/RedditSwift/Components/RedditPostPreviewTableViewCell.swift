@@ -11,6 +11,7 @@ import UIKit
 class RedditPostPreviewTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
 
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
@@ -48,9 +49,17 @@ class RedditPostPreviewTableViewCell: UITableViewCell {
         self.cellSelected = cellSelected
         if let data = data {
             cellData = data
-            title?.text = "data.title  \(data.imgData)"
+            title?.text = data.title
+            title?.numberOfLines = 0
             title.alpha = 1
             indicatorView.stopAnimating()
+
+            if let imgData = data.imgData {
+                self.thumbnailImageView.isHidden = false
+                self.thumbnailImageView.image = UIImage(data: imgData)
+            } else {
+                self.thumbnailImageView.isHidden = true
+            }
         } else {
             title.alpha = 0
             indicatorView.startAnimating()

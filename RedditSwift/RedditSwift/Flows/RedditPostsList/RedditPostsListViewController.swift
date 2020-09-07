@@ -26,7 +26,6 @@ class RedditPostsListViewController: UIViewController, AlertDisplayer {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-        
     }
 
     // MARK: - Helper functions
