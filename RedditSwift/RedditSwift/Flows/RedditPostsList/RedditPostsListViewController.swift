@@ -57,7 +57,7 @@ class RedditPostsListViewController: UIViewController, AlertDisplayer {
 
 extension RedditPostsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.total
+        viewModel.currentCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,9 +69,12 @@ extension RedditPostsListViewController: UITableViewDataSource {
             else { return UITableViewCell() }
 
         if isLoadingCell(for: indexPath) {
-            cell.configure(with: .none)
+            cell.configure(with: .none, cellSelected: nil)
         } else {
-            cell.configure(with: viewModel.getPostPreviewCell(at: indexPath.row))
+            cell.configure(
+                with: viewModel.getPostPreviewCell(at: indexPath.row),
+                cellSelected: createCellSelectedCallBack()
+            )
         }
         return cell
     }
@@ -92,7 +95,7 @@ extension RedditPostsListViewController: RedditPostsListViewModelDelegate {
             // TODO: remove
             self?.tableView.reloadData()
             return
-            
+
             guard let indexPaths = self?.visibleIndexPathsToReload(intersecting: newIndexPaths) else { return }
             self?.tableView.reloadRows(at: indexPaths, with: .automatic)
         }
@@ -133,6 +136,23 @@ private extension RedditPostsListViewController {
             } else {
                 self?.indicatorView.stopAnimating()
                 self?.tableView.isHidden = false
+            }
+        }
+    }
+
+    // MARK: - Generate callbacks
+
+    private func createCellSelectedCallBack() -> ((RedditPostsListBusiness.PostPreview?) -> Void)? {
+        return { [weak self] postData in
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+                guard
+                    let viewController = storyboard.instantiateViewController(
+                        withIdentifier: "RedditPostDetailViewController"
+                        ) as? RedditPostDetailViewController else { return }
+                let navController = UINavigationController(rootViewController: viewController)
+                viewController.postPreviewDataFromParent = postData
+                self?.present(navController, animated: true)
             }
         }
     }

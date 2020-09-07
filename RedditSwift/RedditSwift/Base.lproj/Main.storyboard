@@ -89,5 +89,54 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="83.705357142857139"/>
         </scene>
+        <!--Reddit Post Detail View Controller-->
+        <scene sceneID="Q0x-gr-hRo">
+            <objects>
+                <viewController storyboardIdentifier="RedditPostDetailViewController" id="8z5-Ay-uTi" customClass="RedditPostDetailViewController" customModule="RedditSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Da-tf-vWn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="154" translatesAutoresizingMaskIntoConstraints="NO" id="Pyg-vl-yqk">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ase-fq-c8Y">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="195"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-SP-8dF">
+                                        <rect key="frame" x="0.0" y="349" width="414" height="469"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-d7-re0">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Pyg-vl-yqk" firstAttribute="leading" secondItem="5Da-tf-vWn" secondAttribute="leading" id="8j4-zF-Jl6"/>
+                            <constraint firstItem="K6h-d7-re0" firstAttribute="centerY" secondItem="5Da-tf-vWn" secondAttribute="centerY" id="9TE-OU-KbW"/>
+                            <constraint firstAttribute="trailing" secondItem="Pyg-vl-yqk" secondAttribute="trailing" id="Akw-lD-FsO"/>
+                            <constraint firstItem="Pyg-vl-yqk" firstAttribute="top" secondItem="rwK-dQ-ZjF" secondAttribute="top" id="WIY-Ih-0kX"/>
+                            <constraint firstItem="rwK-dQ-ZjF" firstAttribute="bottom" secondItem="Pyg-vl-yqk" secondAttribute="bottom" id="ZZw-Xx-HyA"/>
+                            <constraint firstItem="K6h-d7-re0" firstAttribute="centerX" secondItem="5Da-tf-vWn" secondAttribute="centerX" id="gsc-qC-WOw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rwK-dQ-ZjF"/>
+                    </view>
+                    <connections>
+                        <outlet property="articleBody" destination="cB1-SP-8dF" id="wCf-0y-sAa"/>
+                        <outlet property="indicatorView" destination="K6h-d7-re0" id="3E5-jO-Iqs"/>
+                        <outlet property="thumbnail" destination="Ase-fq-c8Y" id="dmD-Da-d2d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5oh-We-QSH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1189.8550724637682" y="83.705357142857139"/>
+        </scene>
     </scenes>
 </document>

@@ -1,22 +1,22 @@
 //
-//  RedditPostsListAPP.swift
+//  RedditPostDetailBusiness.swift
 //  RedditSwift
 //
-//  Created by Xujie Zheng on 2020-09-05.
+//  Created by Xujie Zheng on 2020-09-07.
 //  Copyright © 2020 Xujie Zheng. All rights reserved.
 //
 
 import Foundation
 
-class RedditPostsListBusiness {
+class RedditPostDetailBusiness {
     enum ResData {
-        case success([PostPreview])
+        case success(PostDetail)
         case failure(String) // Error to display in an alert
     }
 
-    struct PostPreview {
+    struct PostDetail {
         let title: String?
-        let permalink: String?
+        let bodyText: String?
 
         // Thumbnail
         // TODO: does external link has thumbnail in here?
@@ -25,7 +25,7 @@ class RedditPostsListBusiness {
         let thumbnailURL: String? // URL for the thumbnail
         var imgData: Data? // set after fetched from url
 
-        init(_ post: RedditPostPreview) {
+        init(_ post: RedditPostDetailPreview) {
             title = post.title
             thumbnailWidth = post.thumbnail_width
             thumbnailHeight = post.thumbnail_height
@@ -34,7 +34,7 @@ class RedditPostsListBusiness {
             } else {
                 thumbnailURL = nil
             }
-            permalink = post.permalink
+            bodyText = post.selftext ?? "Article Body Empty"
         }
     }
 }

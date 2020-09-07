@@ -10,16 +10,22 @@ import UIKit
 
 class RedditPostPreviewTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
-    
+
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+
+    // MARK: - Properties
+
+    private var cellSelected: ((RedditPostsListBusiness.PostPreview?) -> Void)?
+    private var cellData: RedditPostsListBusiness.PostPreview?
 
     // MARK: - Life cycles
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        configure(with: .none)
+        // TODO: Not Sure, could be a bug for reuse
+        configure(with: .none, cellSelected: nil)
     }
 
     override func awakeFromNib() {
@@ -29,14 +35,19 @@ class RedditPostPreviewTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        guard selected else { return }
+        cellSelected?(cellData)
     }
 
     // MARK: - Initialization
 
-    func configure(with data: RedditPostsListBusiness.PostPreview?) {
+    func configure(
+        with data: RedditPostsListBusiness.PostPreview?,
+        cellSelected: ((RedditPostsListBusiness.PostPreview?) -> Void)?
+    ) {
+        self.cellSelected = cellSelected
         if let data = data {
+            cellData = data
             title?.text = data.title
             title.alpha = 1
             indicatorView.stopAnimating()

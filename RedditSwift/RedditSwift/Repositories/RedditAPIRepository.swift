@@ -10,36 +10,94 @@ import Foundation
 
 protocol RedditAPIRepository {
     func fetchBaseInfo(completion: @escaping RedditBaseQueryResult)
+    func fetchPostDetail(permaLink: String?, completion: @escaping RedditPostQueryResult)
 }
 
-typealias RedditBaseQueryResult = (RedditPostsListBusiness.Data) -> Void
+typealias RedditBaseQueryResult = (RedditPostsListBusiness.ResData) -> Void
+typealias RedditPostQueryResult = (RedditPostDetailBusiness.ResData) -> Void
 
-class RedditAPIURLSessionRepository: RedditAPIRepository  {
+class RedditAPIURLSessionRepository: RedditAPIRepository {
     // MARK: - Properties
 
-    private let baseInfoURL = "https://www.reddit.com/r/swift/.json"
+    private let domain = "https://www.reddit.com"
+    private let baseInfoURL = "/r/swift/.json"
 
     // MARK: - Variables
-
 
     // MARK: - Methods
 
     func fetchBaseInfo(completion: @escaping RedditBaseQueryResult) {
-        guard let url = URLComponents(string: baseInfoURL)?.url else { return }
-        
+        guard let url = URLComponents(string: "\(domain)\(baseInfoURL)")?.url else { return }
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-          if error == nil {
-            guard let data = data else { return }
-            do {
-                let postBaseInfo = try JSONDecoder().decode(RedditAPIDecoder.RedditPostsListWrapper.self, from: data)
-                let resPost = postBaseInfo.data.children.compactMap { RedditPostsListBusiness.PostPreview($0) }
-                completion(.success(resPost))
-              // start using your model here
-             } catch let error {
-                //error handling
-                completion(.failure(error.localizedDescription))
-             }
-           }
+            // TODO: check response status
+            print(response)
+            if error == nil {
+                guard let data = data else { return }
+                do {
+                    let baseInfo = try JSONDecoder().decode(RedditPostsListAPI.self, from: data)
+                    let resPost = baseInfo.data?.children.compactMap { RedditPostsListBusiness.PostPreview($0.data) }
+                    if let resPost = resPost {
+                        completion(.success(resPost))
+//                        if
+//                            let thumbnail = resPost.thumbnailURL,
+//                            let thumbnailURL = URLComponents(string: thumbnail)?.url {
+//                            URLSession.shared.dataTask(with: thumbnailURL) { (data, _, _) in
+//                                // Suppress errors
+//                                resPost.imgData = data
+//                                completion(.success(resPost))
+//                            }.resume()
+//                        } else {
+//                            completion(.success(resPost))
+//                        }
+                    } else {
+                        completion(.failure("failure to decode."))
+                    }
+
+                    // start using your model here
+                } catch let error {
+                    //error handling
+                    completion(.failure(error.localizedDescription))
+                }
+            }
+        }.resume()
+    }
+
+    func fetchPostDetail(permaLink: String?, completion: @escaping RedditPostQueryResult) {
+        guard
+            let permaLink = permaLink,
+            let url = URLComponents(string: "\(domain)\(permaLink).json")?.url
+            else { return }
+
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            // TODO: check response status
+            print(response)
+            if error == nil {
+                guard let data = data else { return }
+                do {
+                    let postsDetailList = try JSONDecoder().decode([RedditPostDetailAPI].self, from: data)
+                    if let postData = postsDetailList.first?.data?.children.first?.data {
+                        var resPost = RedditPostDetailBusiness.PostDetail(postData)
+                        if
+                            let thumbnail = resPost.thumbnailURL,
+                            let thumbnailURL = URLComponents(string: thumbnail)?.url {
+                            URLSession.shared.dataTask(with: thumbnailURL) { (data, _, _) in
+                                // Suppress errors
+                                resPost.imgData = data
+                                completion(.success(resPost))
+                            }.resume()
+                        } else {
+                            completion(.success(resPost))
+                        }
+                    } else {
+                        completion(.failure("failure to decode."))
+                        return
+                    }
+                } catch let error {
+                    //error handling
+                    completion(.failure(error.localizedDescription))
+                }
+            }
         }.resume()
     }
 }
