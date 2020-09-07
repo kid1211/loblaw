@@ -11,6 +11,7 @@ import Foundation
 protocol RedditPostsListViewModelDelegate: class {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
     func onFetchFailed(with reason: String)
+    func onFetchImageCompleted()
 }
 
 final class RedditPostsListViewModel {
@@ -51,7 +52,7 @@ extension RedditPostsListViewModel {
             switch res {
             case .success(let postLists):
                 self?.redditPostsList = postLists
-//                for now
+                self?.fetchImages()
                 self?.delegate?.onFetchCompleted(with: [IndexPath(row: 0, section: 0)])
             case .failure(let error):
                 self?.hasError = true
@@ -64,5 +65,15 @@ extension RedditPostsListViewModel {
 
     func getPostPreviewCell(at row: Int) -> RedditPostsListBusiness.PostPreview? {
         return redditPostsList[safe: row]
+    }
+
+    private func fetchImages() {
+        redditPostsList.enumerated().forEach { [weak self] idx, post in
+            guard post.thumbnailWidth != nil && post.thumbnailHeight != nil else { return }
+            self?.fetchDataRepository.fetchImageData(with: post.thumbnailURL) { [weak self] data in self?.redditPostsList[idx].imgData = data
+                self?.delegate?.onFetchImageCompleted()
+            }
+            print(idx, post)
+        }
     }
 }

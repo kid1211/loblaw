@@ -108,6 +108,12 @@ extension RedditPostsListViewController: RedditPostsListViewModelDelegate {
             self?.displayAlert(with: title, message: reason, actions: [action])
         }
     }
+
+    func onFetchImageCompleted() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
 }
 
 private extension RedditPostsListViewController {

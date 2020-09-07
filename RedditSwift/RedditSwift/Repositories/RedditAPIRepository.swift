@@ -65,6 +65,7 @@ class RedditAPIURLSessionRepository: RedditAPIRepository {
                     let postsDetailList = try JSONDecoder().decode([RedditPostDetailAPI].self, from: data)
                     if let postData = postsDetailList.first?.data?.children.first?.data {
                         var resPost = RedditPostDetailBusiness.PostDetail(postData)
+                        // TODO: combine this with the main base info one, if there is time
                         if
                             let thumbnail = resPost.thumbnailURL,
                             let thumbnailURL = URLComponents(string: thumbnail)?.url {
@@ -89,7 +90,6 @@ class RedditAPIURLSessionRepository: RedditAPIRepository {
     }
 
     func fetchImageData(with url: String?, completion: @escaping RedditThumbnailQueryResult) {
-        // TODO: if there is time
         guard let url = url, let thumbnailURL = URLComponents(string: url)?.url else { return }
         URLSession.shared.dataTask(with: thumbnailURL) { (data, _, _) in
             // Suppress errors
