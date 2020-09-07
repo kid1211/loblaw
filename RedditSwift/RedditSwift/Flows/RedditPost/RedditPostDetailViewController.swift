@@ -15,7 +15,7 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var articleBody: UILabel!
-    
+
     // MARK: - Properties
 
     private var viewModel = RedditPostDetailViewModel()

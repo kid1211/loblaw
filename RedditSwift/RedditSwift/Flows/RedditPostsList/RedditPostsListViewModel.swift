@@ -69,11 +69,14 @@ extension RedditPostsListViewModel {
 
     private func fetchImages() {
         redditPostsList.enumerated().forEach { [weak self] idx, post in
-            guard post.thumbnailWidth != nil && post.thumbnailHeight != nil else { return }
-            self?.fetchDataRepository.fetchImageData(with: post.thumbnailURL) { [weak self] data in self?.redditPostsList[idx].imgData = data
+            guard
+                post.thumbnailWidth != nil && post.thumbnailHeight != nil,
+                let repo = self?.fetchDataRepository
+                else { return }
+            repo.fetchImageData(with: post.thumbnailURL) { [weak self] data in
+                self?.redditPostsList[idx].imgData = data
                 self?.delegate?.onFetchImageCompleted()
             }
-            print(idx, post)
         }
     }
 }
