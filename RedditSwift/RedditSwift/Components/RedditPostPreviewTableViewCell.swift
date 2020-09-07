@@ -48,7 +48,7 @@ class RedditPostPreviewTableViewCell: UITableViewCell {
         self.cellSelected = cellSelected
         if let data = data {
             cellData = data
-            title?.text = data.title
+            title?.text = "data.title  \(data.imgData)"
             title.alpha = 1
             indicatorView.stopAnimating()
         } else {
