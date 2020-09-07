@@ -116,26 +116,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pyg-vl-yqk">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="15" y="44" width="384" height="818"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ase-fq-c8Y">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="195"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Ase-fq-c8Y" secondAttribute="height" multiplier="138:65" id="ONK-hx-4Q8"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="181"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-SP-8dF">
-                                        <rect key="frame" x="0.0" y="195" width="414" height="623"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJa-Cs-FZv">
+                                        <rect key="frame" x="0.0" y="181" width="384" height="637"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wJa-Cs-FZv" secondAttribute="trailing" id="K4x-Pj-mUN"/>
                                     <constraint firstItem="Ase-fq-c8Y" firstAttribute="leading" secondItem="Pyg-vl-yqk" secondAttribute="leading" id="f8l-e0-8G6"/>
                                     <constraint firstAttribute="trailing" secondItem="Ase-fq-c8Y" secondAttribute="trailing" id="gL6-jJ-UdM"/>
+                                    <constraint firstItem="wJa-Cs-FZv" firstAttribute="leading" secondItem="Pyg-vl-yqk" secondAttribute="leading" id="tnf-KJ-VVR"/>
                                     <constraint firstItem="Ase-fq-c8Y" firstAttribute="top" secondItem="Pyg-vl-yqk" secondAttribute="top" id="ypR-Ph-j49"/>
                                 </constraints>
                             </stackView>
@@ -145,17 +142,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Pyg-vl-yqk" firstAttribute="leading" secondItem="5Da-tf-vWn" secondAttribute="leading" id="8j4-zF-Jl6"/>
                             <constraint firstItem="K6h-d7-re0" firstAttribute="centerY" secondItem="5Da-tf-vWn" secondAttribute="centerY" id="9TE-OU-KbW"/>
-                            <constraint firstAttribute="trailing" secondItem="Pyg-vl-yqk" secondAttribute="trailing" id="Akw-lD-FsO"/>
+                            <constraint firstAttribute="trailing" secondItem="Pyg-vl-yqk" secondAttribute="trailing" constant="15" id="DdG-jG-dOH"/>
                             <constraint firstItem="Pyg-vl-yqk" firstAttribute="top" secondItem="rwK-dQ-ZjF" secondAttribute="top" id="WIY-Ih-0kX"/>
                             <constraint firstItem="rwK-dQ-ZjF" firstAttribute="bottom" secondItem="Pyg-vl-yqk" secondAttribute="bottom" id="ZZw-Xx-HyA"/>
                             <constraint firstItem="K6h-d7-re0" firstAttribute="centerX" secondItem="5Da-tf-vWn" secondAttribute="centerX" id="gsc-qC-WOw"/>
+                            <constraint firstItem="Pyg-vl-yqk" firstAttribute="leading" secondItem="5Da-tf-vWn" secondAttribute="leading" constant="15" id="tGd-GZ-Bqz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rwK-dQ-ZjF"/>
                     </view>
                     <connections>
-                        <outlet property="articleBody" destination="cB1-SP-8dF" id="wCf-0y-sAa"/>
+                        <outlet property="articleBody" destination="wJa-Cs-FZv" id="ggD-WX-waI"/>
                         <outlet property="indicatorView" destination="K6h-d7-re0" id="3E5-jO-Iqs"/>
                         <outlet property="thumbnail" destination="Ase-fq-c8Y" id="dmD-Da-d2d"/>
                     </connections>

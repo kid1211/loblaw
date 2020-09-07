@@ -34,7 +34,7 @@ class RedditPostDetailBusiness {
             } else {
                 thumbnailURL = nil
             }
-            bodyText = post.selftext ?? "Article Body Empty"
+            bodyText = post.selftext
         }
     }
 }

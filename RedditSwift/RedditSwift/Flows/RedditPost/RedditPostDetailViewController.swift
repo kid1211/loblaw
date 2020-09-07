@@ -14,8 +14,8 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
 
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var articleBody: UITextView!
-
+    @IBOutlet weak var articleBody: UILabel!
+    
     // MARK: - Properties
 
     private var viewModel = RedditPostDetailViewModel()
@@ -66,7 +66,12 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
             } else {
                 self?.indicatorView.stopAnimating()
                 self?.articleBody.isHidden = false
-                self?.articleBody.text = self?.viewModel.postDetailData?.bodyText
+
+                if let bodyText = self?.viewModel.postDetailData?.bodyText, bodyText != "" {
+                    self?.articleBody.text = bodyText
+                } else {
+                    self?.articleBody.text = "Article Body Empty"
+                }
 
                 if let title = self?.viewModel.postDetailData?.title {
                     let titleLabel = self?.getTitleLabel(with: title)
