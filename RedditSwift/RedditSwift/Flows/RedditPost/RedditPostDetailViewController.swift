@@ -44,6 +44,8 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
             action: #selector(addTapped)
         )
         navigationItem.leftBarButtonItem = leftNavItem
+
+        indicatorView.color = ColorPalette.RWGreen
     }
 
     // MARK: - Helpers
@@ -82,7 +84,6 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
     }
 
     private func getTitleLabel(with title: String) -> UILabel {
-        // TODO: not verticle center
         let tlabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         tlabel.text = title
         tlabel.textColor = UIColor.black
@@ -90,6 +91,7 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
         tlabel.backgroundColor = UIColor.clear
         tlabel.adjustsFontSizeToFitWidth = true
         tlabel.textAlignment = .center
+        tlabel.numberOfLines = 2
         return tlabel
     }
 

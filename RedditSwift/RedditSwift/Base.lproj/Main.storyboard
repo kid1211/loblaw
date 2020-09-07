@@ -97,14 +97,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="154" translatesAutoresizingMaskIntoConstraints="NO" id="Pyg-vl-yqk">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pyg-vl-yqk">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ase-fq-c8Y">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ase-fq-c8Y">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="195"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Ase-fq-c8Y" secondAttribute="height" multiplier="138:65" id="ONK-hx-4Q8"/>
+                                        </constraints>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-SP-8dF">
-                                        <rect key="frame" x="0.0" y="349" width="414" height="469"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-SP-8dF">
+                                        <rect key="frame" x="0.0" y="195" width="414" height="623"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -112,6 +115,11 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ase-fq-c8Y" firstAttribute="leading" secondItem="Pyg-vl-yqk" secondAttribute="leading" id="f8l-e0-8G6"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ase-fq-c8Y" secondAttribute="trailing" id="gL6-jJ-UdM"/>
+                                    <constraint firstItem="Ase-fq-c8Y" firstAttribute="top" secondItem="Pyg-vl-yqk" secondAttribute="top" id="ypR-Ph-j49"/>
+                                </constraints>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-d7-re0">
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
