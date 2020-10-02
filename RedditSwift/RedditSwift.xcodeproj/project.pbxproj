@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		547F0DBE2527873900A51E47 /* FetchedRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547F0DBD2527873900A51E47 /* FetchedRes.swift */; };
 		D876DFD42503CCCD00933590 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876DFD32503CCCD00933590 /* AppDelegate.swift */; };
 		D876DFD62503CCCD00933590 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876DFD52503CCCD00933590 /* SceneDelegate.swift */; };
 		D876DFD82503CCCD00933590 /* RedditPostsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876DFD72503CCCD00933590 /* RedditPostsListViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		547F0DBD2527873900A51E47 /* FetchedRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedRes.swift; sourceTree = "<group>"; };
 		D876DFD02503CCCD00933590 /* RedditSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D876DFD32503CCCD00933590 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D876DFD52503CCCD00933590 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		D876DFF92503D10400933590 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				547F0DBD2527873900A51E47 /* FetchedRes.swift */,
 				D876DFFD2503D16D00933590 /* RedditPostsListAPI.swift */,
 				D876E00B25047CF400933590 /* RedditPostsListBusiness.swift */,
 				D876E0242505DCFF00933590 /* RedditPostDetailAPI.swift */,
@@ -363,6 +366,7 @@
 				D876DFD42503CCCD00933590 /* AppDelegate.swift in Sources */,
 				D876DFD62503CCCD00933590 /* SceneDelegate.swift in Sources */,
 				D876E0292505F1D200933590 /* RedditBaseWrapperDecoder.swift in Sources */,
+				547F0DBE2527873900A51E47 /* FetchedRes.swift in Sources */,
 				D876E00825045C9300933590 /* RedditAPIRepository.swift in Sources */,
 				D876E02125058D9300933590 /* RedditPostPreviewTableViewCell.swift in Sources */,
 			);

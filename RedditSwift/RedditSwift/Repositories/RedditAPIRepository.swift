@@ -75,7 +75,7 @@ class RedditAPIURLSessionRepository: RedditAPIRepository {
                                 completion(.success(resPost))
                             }.resume()
                         } else {
-                            completion(.success(resPost))
+                            completion(.failure("failure to decode."))
                         }
                     } else {
                         completion(.failure("failure to decode."))

@@ -8,35 +8,24 @@
 
 import Foundation
 
-protocol RedditPostDetailViewModelDelegate: class {
-//    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func onFetchFailed(with reason: String)
-}
-
 final class RedditPostDetailViewModel {
     // MARK: - Properties
 
-    weak private var delegate: RedditPostDetailViewModelDelegate?
     private let fetchDataRepository: RedditAPIRepository
-    private(set) var isFetching: Observable<Bool> = Observable(false)
-    private(set) var hasError = false
-    private var postPreviewData: RedditPostsListBusiness.PostPreview? // Only use when setup
+    
+    private(set) var fetchedRes: Observable<FetchedRes<RedditPostDetailBusiness.PostDetail>> = Observable(.notStarted)
+    
     private var articleBody = ""
-    private(set) var postDetailData: RedditPostDetailBusiness.PostDetail?
+    private var postPreviewData: RedditPostsListBusiness.PostPreview
 
     // MARK: - Init
 
-    init(repo: RedditAPIRepository = RedditAPIURLSessionRepository()) {
+    init(repo: RedditAPIRepository = RedditAPIURLSessionRepository(), data: RedditPostsListBusiness.PostPreview) {
         fetchDataRepository = repo
-    }
-
-    /// ViewController need to call this in viewDidLoad to set up viewModel
-    func configure(
-        viewModelDelegate: RedditPostDetailViewModelDelegate,
-        data: RedditPostsListBusiness.PostPreview?
-    ) {
-        delegate = viewModelDelegate
         postPreviewData = data
+        
+        // start fetching right away
+        fetchPostDetail()
     }
 }
 
@@ -44,21 +33,16 @@ extension RedditPostDetailViewModel {
     // MARK: Methods
 
     func fetchPostDetail() {
-        guard !(isFetching.value ?? true) else { return }
+        guard fetchedRes.value != .fetching else { return }
 
-        postDetailData = nil
-        isFetching.value = true
-        hasError = false
-        fetchDataRepository.fetchPostDetail(permaLink: postPreviewData?.permalink) { [weak self] res in
+        fetchedRes.value = .fetching
+        fetchDataRepository.fetchPostDetail(permaLink: postPreviewData.permalink) { [unowned self] res in
             switch res {
             case .success(let postDetail):
-                self?.postDetailData = postDetail
+                self.fetchedRes.value = .success(postDetail)
             case .failure(let error):
-                self?.hasError = true
-                self?.delegate?.onFetchFailed(with: error)
+                self.fetchedRes.value = .error(error)
             }
-            self?.isFetching.value = false
         }
-
     }
 }

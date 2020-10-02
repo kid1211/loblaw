@@ -18,23 +18,24 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
 
     // MARK: - Properties
 
-    private var viewModel = RedditPostDetailViewModel()
+    private var viewModel: RedditPostDetailViewModel?
     var postPreviewDataFromParent: RedditPostsListBusiness.PostPreview?
 
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let postData = postPreviewDataFromParent else { return }
+        viewModel = RedditPostDetailViewModel(data: postData)
+        
         initialize()
         initView()
-        viewModel.fetchPostDetail()
     }
 
     // MARK: - Init view
 
     private func initialize() {
-        viewModel.configure(viewModelDelegate: self, data: postPreviewDataFromParent)
-        viewModel.isFetching.bind(self, action: fetchCompleted)
+        viewModel?.fetchedRes.bind(self, action: fetchCompleted)
     }
 
     private func initView() {
@@ -50,40 +51,45 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
 
     // MARK: - Helpers
 
-    private func fetchCompleted(_ isFetching: Bool) {
+    private func fetchCompleted(_ fetchedRes: FetchedRes<RedditPostDetailBusiness.PostDetail>) {
         DispatchQueue.main.async { [weak self] in
-            let hasError = self?.viewModel.hasError ?? false
-            if isFetching {
+            switch fetchedRes {
+            case .fetching:
                 self?.indicatorView.startAnimating()
                 self?.thumbnail.isHidden = true
                 self?.articleBody.isHidden = true
                 self?.navigationItem.title = "Loading ..."
-            } else if hasError {
+            case .error(let errorMsg):
                 self?.indicatorView.stopAnimating()
                 self?.thumbnail.isHidden = true
                 self?.articleBody.isHidden = true
-                self?.navigationItem.title = "Error"
-            } else {
+                self?.navigationItem.title = errorMsg
+                self?.showAlert(with: errorMsg)
+            case .success(let postDetail):
                 self?.indicatorView.stopAnimating()
                 self?.articleBody.isHidden = false
 
-                if let bodyText = self?.viewModel.postDetailData?.bodyText, bodyText != "" {
+                if let bodyText = postDetail.bodyText, bodyText != "" {
                     self?.articleBody.text = bodyText
                 } else {
                     self?.articleBody.text = "Article Body Empty"
                 }
 
-                if let title = self?.viewModel.postDetailData?.title {
+                if let title = postDetail.title {
                     let titleLabel = self?.getTitleLabel(with: title)
                     self?.navigationItem.titleView = titleLabel
                 }
 
-                if let imgData = self?.viewModel.postDetailData?.imgData {
+                if let imgData = postDetail.imgData {
                     self?.thumbnail.isHidden = false
                     self?.thumbnail.image = UIImage(data: imgData)
                 } else {
                     self?.thumbnail.isHidden = true
                 }
+            case .notStarted:
+                self?.indicatorView.stopAnimating()
+                self?.thumbnail.isHidden = true
+                self?.articleBody.isHidden = true
             }
         }
     }
@@ -106,12 +112,11 @@ class RedditPostDetailViewController: UIViewController, AlertDisplayer {
 
 }
 
-extension RedditPostDetailViewController: RedditPostDetailViewModelDelegate {
-    func onFetchFailed(with reason: String) {
+extension RedditPostDetailViewController {
+    private func showAlert(with reason: String?) {
+        guard let reason = reason else { return }
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
-
-        DispatchQueue.main.async { [weak self] in
-            self?.displayAlert(with: title, message: reason, actions: [action])
-        }
-    }}
+        displayAlert(with: title, message: reason, actions: [action])
+    }
+}
